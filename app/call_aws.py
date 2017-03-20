@@ -1,7 +1,8 @@
 """
 Created on March 19 2016
 
-Intent: Mak a call to AWS Alexa to obtain web traffic for a set of web domains
+Intent: Make a call to AWS Alexa to obtain web traffic for a set of web domains
+http://docs.aws.amazon.com/AlexaWebInfoService/latest/
 """
 import sys, os, xmltodict
 sys.path.insert(0, '/Users/RobParrish/Envs/awis')
