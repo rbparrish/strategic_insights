@@ -21,24 +21,26 @@ def get_alexa_history(url, aws_access_key_id, aws_scret_access_key):
 
 def parse_single_result(single_result):
 	# parses a single datum from parsed beautiful soup alexa history result
-	output = {
-		'date': str(single_result.Date.string),
-		'pageviews_millions': float(single_result.PageViews.PerMillion.string),
-		'avg_pageviews_per_user': float(single_result.PageViews.PerUser.string),
-		'rank': int(single_result.Rank.string),
-		'reach_permillion': float(single_result.Reach.PerMillion.string)
-		}
-	return output
+    output = {
+        'date': str(single_result.Date.string),
+        'pageviews_millions': float(single_result.PageViews.PerMillion.string),
+        'avg_pageviews_per_user': float(single_result.PageViews.PerUser.string),
+        'rank': int(single_result.Rank.string),
+        'reach_permillion': float(single_result.Reach.PerMillion.string)
+    }
+    return output
 
-def alexa_history_into_pd_table(full_alexa_history_api_response):
-	#runs parse_single_result for all data in alexa history result. 
-	#RETURNS: list of dicts 
+def alexa_history_into_pd_table(full_alexa_history_response):
+	'''
+	runs parse_single_result for all data in alexa history result. 
+	RETURNS: list of dicts 
+	'''
 	# TODO: return pandas dataframe instead of list of dicts
-	all_data_soup = full_alexa_history_api_response.find_all('Data')
-	output = list()
-	for row in all_data_soup:
-		output.append(parse_single_result(row))
-	return output
+    all_data_soup = full_alexa_history_response.find_all('Data')
+    output = list()
+    for row in all_data_soup:
+        output.append(parse_single_result(row))
+    return output
 
 if __name__ == "__main__":
 	AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
